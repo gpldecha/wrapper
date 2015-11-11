@@ -1,0 +1,47 @@
+<?xml version="1.0"?>
+<robot name="table" xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+<!-- Import Rviz colors -->
+<xacro:include filename="$(find table_description)/urdf/materials.xacro" />
+
+<xacro:property name="table_l"  value="0.7"    /> 
+<xacro:property name="table_h"  value="0.5"   /> 
+<xacro:property name="table_w"  value="0.04"   />
+
+
+<xacro:macro name="box_I" params="m w h d">
+    <inertia ixx="${1/12 * m * (d*d  + h * h)}" ixy="0.0" ixz="0.0" iyy="${1/12 * m * (h * h + w * w)}" iyz="0.0" izz="${1/12 * m * (w * w + d * d)}" />
+</xacro:macro>
+
+
+<xacro:macro name="cube">
+<link name="cube_link">
+	<visual>
+		<origin xyz="0 0 0" rpy="0 0 0"/>
+		<geometry>
+			<box size="${table_l} ${table_h} ${table_w}"/>	
+		</geometry>
+ 		<material name="Wood">
+ 			<color rgba="1 0.88 0.56 1"/>
+        	</material>
+        </visual>
+
+	<inertial>
+		<origin xyz="0 0 0" rpy="0 0 0"/>
+		<mass value="1"/>
+		<xacro:box_I m="1.0" w="${table_w}" h="${table_h}" d="${table_l}"/>
+	</inertial>
+
+	<collision>
+		<origin xyz="0 0 0" rpy="0 0 0"/>
+		<geometry>
+			<box size="${table_l} ${table_h} ${table_w}"/>	
+		</geometry>
+  	</collision>
+
+</link>
+</xacro:macro>
+
+<xacro:cube/>
+
+</robot>

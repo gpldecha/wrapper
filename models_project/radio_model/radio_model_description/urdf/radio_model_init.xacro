@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<robot name="radio_model" xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+<xacro:include filename="$(find radio_model)/radio_model_description/urdf/radio_model.xacro"/>
+
+<xacro:radio_model/>
+
+</robot>

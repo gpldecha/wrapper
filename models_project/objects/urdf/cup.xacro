@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+<robot name="cup" xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+
+<xacro:property name="cup_l"  value="0.09"    /> 
+<xacro:property name="cup_r"  value="0.05"   /> 
+
+
+<xacro:macro name="box_I" params="m w h d">
+    <inertia ixx="${1/12 * m * (d*d  + h * h)}" ixy="0.0" ixz="0.0" iyy="${1/12 * m * (h * h + w * w)}" iyz="0.0" izz="${1/12 * m * (w * w + d * d)}" />
+</xacro:macro>
+
+<xacro:macro name="cyl_I" params="m r">
+        <inertia ixx="${0.5 * m * r*r}" ixy="0.0" ixz="0.0" iyy="${0.5 * m * r*r}" iyz="0.0" izz="${0.5 * m * r*r}" />
+</xacro:macro>
+
+
+<link name="cup_link">
+	<visual>
+		<origin xyz="0 0 0" rpy="0 0 0"/>
+		<geometry>
+			<cylinder length="${cup_l}" radius="${cup_r}"/>
+		</geometry>
+        </visual>
+
+	<inertial>
+		<origin xyz="0 0 0" rpy="0 0 0"/>
+		<mass value="1"/>
+		<xacro:cyl_I m="1.0" r="${cup_r}"/>
+	</inertial>
+
+	<collision>
+		<origin xyz="0 0 0" rpy="0 0 0"/>
+		<geometry>
+			<cylinder length="${cup_l}" radius="${cup_r}"/>
+		</geometry>
+  	</collision>
+
+</link>
+
+
+</robot>

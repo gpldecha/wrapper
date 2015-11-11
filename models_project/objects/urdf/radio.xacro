@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<robot name="radio" xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+
+<xacro:property name="r_l"  value="0.18"    /> 
+<xacro:property name="r_h"  value="0.12"   /> 
+<xacro:property name="r_w"  value="0.04"   />
+
+
+<xacro:macro name="box_I" params="m w h d">
+    <inertia ixx="${1/12 * m * (d*d  + h * h)}" ixy="0.0" ixz="0.0" iyy="${1/12 * m * (h * h + w * w)}" iyz="0.0" izz="${1/12 * m * (w * w + d * d)}" />
+</xacro:macro>
+
+
+<link name="radio_link">
+	<visual>
+		<origin xyz="0 0 0" rpy="0 0 0"/>
+		<geometry>
+			<box size="${r_l} ${r_h} ${r_w}"/>	
+		</geometry>
+        </visual>
+
+	<inertial>
+		<origin xyz="0 0 0" rpy="0 0 0"/>
+		<mass value="1"/>
+		<xacro:box_I m="1.0" w="${r_w}" h="${r_h}" d="${r_l}"/>
+	</inertial>
+
+	<collision>
+		<origin xyz="0 0 0" rpy="0 0 0"/>
+		<geometry>
+			<box size="${r_l} ${r_h} ${r_w}"/>	
+		</geometry>
+  	</collision>
+
+</link>
+
+
+</robot>

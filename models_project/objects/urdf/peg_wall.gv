@@ -1,0 +1,8 @@
+digraph G {
+node [shape=box];
+"socket_wall_link" [label="socket_wall_link"];
+"link_socket" [label="link_socket"];
+node [shape=ellipse, color=blue, fontcolor=blue];
+"socket_wall_link" -> "joint_socket" [label="xyz: 0 0 0 \nrpy: 0 -0 0"]
+"joint_socket" -> "link_socket"
+}

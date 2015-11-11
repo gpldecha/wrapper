@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<launch>
+
+	<node name="cylinder_test" pkg="wrap_object" type="test_cylinder_node" required="true" output="screen"/>
+
+	<!-- rviz -->
+	<node name="rviz" pkg="rviz" type="rviz"  args="-d $(find wrap_object)/launch/rviz/test_cylinder.rviz"  required="true" />
+
+</launch>

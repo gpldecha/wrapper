@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<launch>
+
+	<arg name="gui" default="False" />
+
+	<param name="robot_description" command="$(find xacro)/xacro.py '$(find radio_model)/radio_model_description/urdf/radio_model.xacro'" />
+	<param name="use_gui" value="$(arg gui)"/>
+
+
+	<node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher">
+                <param name="publish_default_positions" value="true" />
+        </node>
+
+	<node name="robot_state_publisher" pkg="robot_state_publisher" type="state_publisher" />
+
+
+	<node name="rviz" pkg="rviz" type="rviz" args="-d $(find radio_model)/radio_model_description/launch/rviz_config.rviz" required="true" />
+
+
+
+</launch>
+
+<!-- <node name="rviz" pkg="rviz" type="rviz" args="-d $(find table_description)/urdf/urdf.rviz" required="true" />-->

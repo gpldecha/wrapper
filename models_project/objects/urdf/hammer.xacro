@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+<robot name="hammer" xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+<xacro:property name="h_length"  value="0.28"    /> 
+<xacro:property name="w_mass"  value="0.02"    /> 
+
+<link name="hammer_handle_link">
+	
+	<visual>
+		<origin xyz="0 0 0" rpy="0 0 0"/>
+		<geometry>
+			<cylinder length="${h_length}" radius="0.02"/>
+		</geometry>
+        </visual>
+</link>
+
+<link name="hammer_mass_link">
+	
+	<visual>
+		<origin xyz="0 0 0" rpy="0 0 0"/>
+		<geometry>
+			<box size="0.1 ${w_mass} ${w_mass}"/>
+		</geometry>
+        </visual>
+
+</link>
+
+<joint name="joint_handle_mass" type="fixed">
+		<origin xyz="0 0 ${0.5* h_length + 0.5 * w_mass}" rpy="0 0 0"/>
+		<parent link="hammer_handle_link"/>
+		<child link="hammer_mass_link"/>
+</joint>
+
+</robot>
+

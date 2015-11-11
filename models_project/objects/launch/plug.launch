@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<launch>
+
+	<arg name="use_rviz" 			default="True" />
+
+	<arg name="use_table_broadcaster" 	default="True"/>
+	<arg name="use_broadcaster"		default="False"/>
+
+	<arg name="save_path"			default="/home/guillaume/roscode/catkin_ws/src/objects/save"/>
+	<arg name="load_saved"			default="False"/>
+
+	<arg name="origin"			default="0 0 0"/>
+	<arg name="orientation"			default="0 0 0 1"/>
+
+
+	<group ns="plug">
+		<param name="robot_description" command="$(find xacro)/xacro.py '$(find objects)/urdf/plug.xacro'" />
+		<node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher"/>
+		<node name="robot_state_publisher" pkg="robot_state_publisher" type="state_publisher" />
+		<node pkg="tf" type="static_transform_publisher" name="plug_broadcaster" args="$(arg origin) $(arg orientation) world plug_link 100" />
+	</group>
+
+
+
+	<group if="$(arg use_rviz)">	
+		<node name="rviz" pkg="rviz" type="rviz"  args="-d $(find objects)/launch/rviz/plug.rviz"  required="true" />
+	</group>
+
+
+
+
+
+</launch>

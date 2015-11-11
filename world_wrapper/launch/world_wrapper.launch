@@ -1,0 +1,44 @@
+<?xml version="1.0"?>
+<launch>
+
+	<!--arg name="table_urdf" value="'$(find table_description)/urdf/table.urdf'" /-->
+	<!--small table URDF-	
+	<include file="$(find table_description)/launch/table.launch">
+	  	<arg name="use_rviz" 			value="False"/>
+		<arg name="origin"   			value="0 0 0"/>
+		<arg name="orientation"			value="0 0 0 1"/>	
+		<arg name="use_table_broadcaster" 	value="False"/>
+		<arg name="use_broadcaster" 		value="True"/>
+	</include>	--> 
+
+
+	<arg name="socket_type"		default="table_sw_one"/>
+
+	<!-- table socket -->
+	<arg name="table_urdf" value="'$(find peg_in_hole)/urdf/One/table_sw_one.urdf'" />
+	<include file="$(find peg_in_hole)/launch/table/$(arg socket_type).launch">
+	  	<arg name="use_rviz" 			value="False"/>
+		<arg name="origin"   			value="0 0 0"/>
+		<arg name="orientation"			value="0 0 0 1"/>
+		<arg name="load_saved"			value="True"/>	
+		<arg name="use_vision_broadcaster" 	value="False"/>
+		<arg name="use_broadcaster" 		value="True"/>
+	</include> 
+
+
+ 	<!--arg name="cube_urdf" value="'$(find world_wrapper)/urdf/cube.urdf'" /
+
+	<param name="robot_description" command="$(find xacro)/xacro.py '$(find world_wrapper)/urdf/cube.xacro'" />
+	<node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher"/>
+	<node name="robot_state_publisher" pkg="robot_state_publisher" type="state_publisher" />
+	
+	<node pkg="tf" type="static_transform_publisher" name="table_broadcaster" args="0 0 0 0 0 0 1 world cube_link 100" />
+-->
+
+	<!-- launch-prefix="xterm -e gdb -args"  -->
+	<node name="world_wrapper" pkg="world_wrapper" type="world_wrapper_node" args="-urdf $(arg table_urdf) -root_link world" output="screen"/>
+
+	<node name="rviz" pkg="rviz" type="rviz" args="-d $(find world_wrapper)/launch/world_wrapper.rviz" required="true"/>
+
+
+</launch>

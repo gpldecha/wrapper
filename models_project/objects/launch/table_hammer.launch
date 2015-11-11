@@ -1,0 +1,45 @@
+<?xml version="1.0"?>
+<launch>
+
+	<!-- big table URDF -->
+	<include file="$(find table_description)/launch/big_table.launch">
+	  	<arg name="use_rviz"			value="False"/>
+		<arg name="origin"   			value="0 0 0"/>	
+		<arg name="orientation"			value="0 0 -0.707107 0.707107"/>		
+		<arg name="use_table_broadcaster" 	value="False"/>
+		<arg name="use_broadcaster" 		value="True"/>
+	</include>	
+
+	<!-- Hammer URDF -->
+	<include file="$(find objects)/launch/hammer.launch">
+	  	<arg name="use_rviz"			value="False"/>
+		<arg name="origin"   			value="0 0 0.05"/>	
+		<arg name="orientation"			value="-0.707107 0 0 0.707107"/>		
+		<arg name="use_table_broadcaster" 	value="False"/>
+		<arg name="use_broadcaster" 		value="true"/>
+	</include>	
+
+
+	<!-- Radio URDF -->
+	<include file="$(find objects)/launch/radio.launch">
+	  	<arg name="use_rviz"			value="False"/>
+		<arg name="origin"   			value="0.3 0 0.05"/>	
+		<arg name="orientation"			value="0 0 0 1"/>		
+		<arg name="use_table_broadcaster" 	value="False"/>
+		<arg name="use_broadcaster" 		value="true"/>
+	</include>
+
+	<!-- Cup URDF -->
+	<include file="$(find objects)/launch/cup.launch">
+	  	<arg name="use_rviz"			value="False"/>
+		<arg name="origin"   			value="0.0 0.2 0.05"/>	
+		<arg name="orientation"			value="0 0 0 1"/>		
+		<arg name="use_table_broadcaster" 	value="False"/>
+		<arg name="use_broadcaster" 		value="true"/>
+	</include>	
+
+	<!-- Rviz -->
+	<node name="rviz" pkg="rviz" type="rviz" args="-d $(find objects)/launch/rviz/table_hammer.rviz" required="true" />
+
+
+</launch>
