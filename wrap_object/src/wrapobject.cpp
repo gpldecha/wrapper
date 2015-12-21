@@ -25,15 +25,6 @@ void WrapObject::push_back_box(wobj::WBox* wbox){
     bWBox   = true;
 }
 
-/*
-void WrapObject::push_back_box(const std::string& name,const geo::fCVec3& dim,const geo::fCVec3& origin,const geo::fCVec3& orientation){
-    // Wrap the box and push back the points and reference to th
-    wboxes.push_back(WBox(name,dim,origin,orientation));
-    name_index[name] = wboxes.size()-1;
-    bWBox   = true;
-}
-*/
-
 void WrapObject::push_back_circle(const std::string& name, const geo::fCVec3 &C, const geo::fCVec3& orienation, float r){
 
     geo::fMat33 R;
@@ -371,7 +362,13 @@ std::size_t WrapObject::get_number_objects() const{
 }
 
 wobj::WBox &WrapObject::get_wbox(std::string name){
-    return *wboxes[name_index[name]];
+    if( name_index.find(name) != name_index.end()){
+        return *wboxes[name_index[name]];
+    }else{
+        std::cout<< "no such wbox present: " << name << std::endl;
+        return *wboxes[0];
+    }
+
 }
 
 wobj::WBox &WrapObject::get_wbox(std::size_t index){
@@ -406,10 +403,29 @@ void WrapObject::print_points(const std::string& name){
 }
 
 
-void WrapObject::print_info() const{
-    for(std::size_t i = 0; i < wboxes.size();i++){
-        wboxes[i]->print_info();
+void WrapObject::print_info(print_info_type type) const{
+    switch(type){
+    case ALL:
+    {
+        for(std::size_t i = 0; i < wboxes.size();i++){
+            wboxes[i]->print_info();
+        }
+        break;
     }
+    case NAMES:
+    {
+        for(std::size_t i = 0; i < wboxes.size();i++){
+           std::cout<< "wboxes[" << i << "]: " << wboxes[i]->name << std::endl;
+        }
+
+        break;
+    }
+    default:
+    {
+        break;
+    }
+    }
+
 }
 
 

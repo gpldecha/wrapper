@@ -1,0 +1,8 @@
+prefix=/usr/local
+
+Name: wrap_object
+Description: Description of wrap_object
+Version: 0.0.0
+Cflags: -I/usr/local/include
+Libs: -L/usr/local/lib -lwrap_object
+Requires: roscpp

@@ -1,0 +1,8 @@
+prefix=/usr/local
+
+Name: objects
+Description: Description of objects
+Version: 0.0.0
+Cflags: -I/usr/local/include
+Libs: -L/usr/local/lib -lsockets -lvis_objects
+Requires: roscpp tf optitrack_rviz visualization_msgs

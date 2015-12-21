@@ -53,6 +53,11 @@ typedef struct {
     std::size_t     index_fea;
 } ID_object;
 
+typedef enum print_info_type{
+    NAMES,
+    ALL
+} print_info_type;
+
 
 class WrapObject{
 
@@ -60,15 +65,6 @@ class WrapObject{
 public:
 
     WrapObject();
-
-    ///
-    /// \brief push_back_box
-    /// \param dim, (length,width,height)
-    /// \param position, (x,y,z) position of the box's center
-    /// \param orientation, (yaw,pitch,rol) of the box
-    /// \param wrapType
-    ///
-    //void push_back_box(const std::string& name,const geo::fCVec3& dim,const geo::fCVec3& origin,const geo::fCVec3& orientation);
 
     void push_back_box(WBox *wbox);
 
@@ -130,7 +126,7 @@ public:
 
     void print_points(const std::string& name);
 
-    void print_info() const;
+    void print_info(print_info_type type) const;
 
 private:
 

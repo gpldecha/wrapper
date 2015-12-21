@@ -9,7 +9,7 @@ find_package(catkin REQUIRED roscpp optitrack_rviz)
 
 #   SET FLAGS
 
-set(CMAKE_CXX_FLAGS "-O2 -O3 -std=c++11 -mtune=native -fPIC -Wall -W -Wno-unused-function -Wno-unused-parameter")
+set(CMAKE_CXX_FLAGS "-O2 -O3 -std=c++11 -isystem -mtune=native -fPIC -Wall -W -Wno-unused-function -Wno-unused-parameter")
 set(CMAKE_BUILD_TYPE Release)
 set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE}")
 # FIND LIBRARIES

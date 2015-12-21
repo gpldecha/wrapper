@@ -1,0 +1,8 @@
+prefix=/home/guillaume/roscode/catkin_ws/src/wrapper/models_project/objects/build/devel
+
+Name: objects
+Description: Description of objects
+Version: 0.0.0
+Cflags: -I/home/guillaume/roscode/catkin_ws/src/wrapper/models_project/objects/include
+Libs: -L/home/guillaume/roscode/catkin_ws/src/wrapper/models_project/objects/build/devel/lib -lsockets -lvis_objects
+Requires: roscpp tf optitrack_rviz visualization_msgs

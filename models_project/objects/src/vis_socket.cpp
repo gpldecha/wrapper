@@ -25,7 +25,7 @@ void Vis_socket::initialise(std::size_t num_points, float scale){
         socket_marker_array.markers[i].points.resize(num_points);
     }
 
-    ROS_INFO(" initialise position of socket_markers");
+//    ROS_INFO(" initialise position of socket_markers");
 
 
     initialise_disk(socket_marker_array.markers[0].points,wsocket.plate.C,wsocket.plate.R,wsocket.plate.r);
@@ -46,7 +46,7 @@ void Vis_socket::initialise_disk(std::vector<geometry_msgs::Point>& points,
     X.zeros();
     float deg = 0;
 
-    std::cout<< "initalise_disk" << std::endl;
+   // std::cout<< "initalise_disk" << std::endl;
 
     tf::Matrix3x3 rotation;
     geo::fMat33 rot;
@@ -58,8 +58,8 @@ void Vis_socket::initialise_disk(std::vector<geometry_msgs::Point>& points,
         }
     }
 
-     rot.print("tf  Rotation");
-     R.print("R rotation");
+   //  rot.print("tf  Rotation");
+  //   R.print("R rotation");
 
      U = R.col(0);
      V = R.col(1);

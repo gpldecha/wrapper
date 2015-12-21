@@ -1,0 +1,8 @@
+prefix=/home/guillaume/roscode/catkin_ws/src/wrapper/build-wrap_object-sytem_g-Default/devel
+
+Name: wrap_object
+Description: Description of wrap_object
+Version: 0.0.0
+Cflags: -I/home/guillaume/roscode/catkin_ws/src/wrapper/wrap_object/include
+Libs: -L/home/guillaume/roscode/catkin_ws/src/wrapper/build-wrap_object-sytem_g-Default/devel/lib -lwrap_object
+Requires: roscpp

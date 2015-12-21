@@ -1,0 +1,7 @@
+set(_CATKIN_CURRENT_PACKAGE "wrap_object")
+set(wrap_object_MAINTAINER "guillaume <guillaume@todo.todo>")
+set(wrap_object_DEPRECATED "")
+set(wrap_object_VERSION "0.0.0")
+set(wrap_object_BUILD_DEPENDS "roscpp")
+set(wrap_object_RUN_DEPENDS "roscpp")
+set(wrap_object_BUILDTOOL_DEPENDS "catkin")

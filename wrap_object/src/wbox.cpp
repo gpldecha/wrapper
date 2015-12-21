@@ -21,10 +21,6 @@ name(name),dim(dim),origin(origin)
     R.eye();
     set_position(origin,R);
 
-    print_info();
-    surfaces[0].print();
-
-
 
 }
 
@@ -157,13 +153,6 @@ void WBox::distance_to_features(const geo::fCVec3& P){
 }
 
 float WBox::distance_to_surfaces(const geo::fCVec3& P){
-
-  //  exit(0);
-   // std::cout<< "=== distance to surface === " << std::endl;
-  //  P.print("P");
-
-  //  surfaces[0].print();
-  //  print_info();
 
     dist.min_s = std::numeric_limits<float>::max();
     closest_surface_id=0;

@@ -1,0 +1,2 @@
+- setup-file:
+    local-name: /home/guillaume/roscode/catkin_ws/src/wrapper/models_project/objects/build/devel/setup.sh

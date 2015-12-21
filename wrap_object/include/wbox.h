@@ -6,7 +6,7 @@
 
 namespace wobj{
 
-static void rotation_matrix(geo::fMat33& R, const geo::fCVec3 &orientation){
+inline void rotation_matrix(geo::fMat33& R, const geo::fCVec3 &orientation){
     float a = orientation(0);
     float b  = orientation(1);
     float g = orientation(2);

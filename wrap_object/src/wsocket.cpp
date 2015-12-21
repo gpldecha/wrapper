@@ -57,10 +57,6 @@ void WSocket::transform(const geo::fCVec3& t, const geo::fCVec3& Rot){
 
     setEulerYPR(R,Rot(2),Rot(1),Rot(0));
 
-    std::cout<< "apply transformation" << std::endl;
-    t.print("translation");
-    R.print("rotation");
-
     plate.transform(t,R);
     holes[0].transform(t,R);
     holes[1].transform(t,R);

@@ -1,0 +1,7 @@
+set(_CATKIN_CURRENT_PACKAGE "objects")
+set(objects_MAINTAINER "guillaume <guillaume@todo.todo>")
+set(objects_DEPRECATED "")
+set(objects_VERSION "0.0.0")
+set(objects_BUILD_DEPENDS "roscpp" "tf" "optitrack_rviz" "visualization_msgs" "wrap_object")
+set(objects_RUN_DEPENDS "roscpp" "tf" "optitrack_rviz" "visualization_msgs" "wrap_object")
+set(objects_BUILDTOOL_DEPENDS "catkin")
