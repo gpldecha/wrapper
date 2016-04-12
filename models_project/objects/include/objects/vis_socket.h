@@ -22,7 +22,7 @@ public:
 
     Vis_socket(ros::NodeHandle& n, const wobj::WSocket &wsocket);
 
-    void initialise(std::size_t num_points,float scale);
+    void initialise(std::size_t num_points, const std::string& world_frame,float scale);
 
     void publish();
 

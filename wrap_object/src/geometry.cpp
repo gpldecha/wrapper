@@ -1,5 +1,5 @@
 #include "geometry.h"
-
+#include <assert.h>
 
 namespace geo{
 
@@ -251,17 +251,50 @@ void Surface::reset_variables(){
 
     VMiddle = (V0 + V1 + V2 + V3)/4;
 
-    u = V1 - V0;
-    v = V3 - V0;
+    // find the neighbours of V0
+
+    arma::vec tmp(3);
+    tmp(0) = std::sqrt(arma::sum(arma::pow(V1 - V0,2)));
+    tmp(1) = std::sqrt(arma::sum(arma::pow(V2 - V0,2)));
+    tmp(2) = std::sqrt(arma::sum(arma::pow(V3 - V0,2)));
+    arma::uvec indices = arma::sort_index(tmp);
+
+    if(indices(0) == 0)
+    {
+        u = V1 - V0;
+    }else if(indices(0) == 1){
+        u = V2 - V0;
+    }else{
+        u = V3 - V0;
+    }
+
+    if(indices(1) == 0)
+    {
+        v = V1 - V0;
+    }else if(indices(1) == 1){
+        v = V2 - V0;
+    }else{
+        v = V3 - V0;
+    }
+
+    assert(arma::sum(v - u) != 0);
+
     s = t = 0;
     n = arma::cross(u,v);
     n = arma::normalise(n);
+    d = - arma::dot(n,V0);
 }
 
 
 double Surface::shortest_distance(const fCVec3 &P){
     w = P - V0;
     projected_P = P - n * arma::dot(w,n);
+    if(arma::dot(w,n) < 0){
+        isInside = true;
+    }else{
+        isInside = false;
+    }
+    //projection = projected_P;
     compute_projection_on_plane_segement();
     return arma::norm(projection - P,2);
 }
@@ -312,16 +345,19 @@ const geo::fCVec3 &Surface::get_middle() const{
 const fCVec3 &Surface::get_normal() const{
     return n;
 }
-bool Surface::is_inside(const fCVec3 &P){
 
+bool Surface::is_inside(const fCVec3 &P){
     w = P - V0;
     w = arma::normalise(w);
-
-    if(std::acos(arma::dot(w,n)) > M_PI/2){
+    if(arma::dot(w,n) < 0){
         isInside = true;
     }else{
         isInside = false;
     }
+    return isInside;
+}
+
+bool Surface::is_inside() const{
     return isInside;
 }
 

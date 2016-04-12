@@ -182,6 +182,7 @@ private:
     geo::fCVec3                         closest_point_corner;
 
     std::map<std::string,std::size_t>   name_index;
+    std::map<std::string,std::size_t>::iterator name_it;
 
 
 

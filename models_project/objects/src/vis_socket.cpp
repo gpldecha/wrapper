@@ -8,14 +8,14 @@ Vis_socket::Vis_socket(ros::NodeHandle& n,const wobj::WSocket& wsocket):wsocket(
     socket_pub = n.advertise<visualization_msgs::MarkerArray>("vis_socket", 10);
 }
 
-void Vis_socket::initialise(std::size_t num_points, float scale){
+void Vis_socket::initialise(std::size_t num_points, const std::string& world_frame, float scale){
 
 
     socket_marker_array.markers.resize(4);
 
     for(std::size_t i = 0; i < socket_marker_array.markers.size();i++){
 
-        socket_marker_array.markers[i].header.frame_id = "/world_frame";
+        socket_marker_array.markers[i].header.frame_id = world_frame;
         socket_marker_array.markers[i].type            = visualization_msgs::Marker::LINE_STRIP;
         socket_marker_array.markers[i].id              = i;
         socket_marker_array.markers[i].color.a         = 1.0f;

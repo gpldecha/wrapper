@@ -1,0 +1,1 @@
+/usr/bin/c++  -fPIC  -O2 -O3 -std=c++11 -mtune=native -fPIC -Wall -Wno-unused-variable -g   -shared -Wl,-soname,libvis_objects.so -o devel/lib/libvis_objects.so CMakeFiles/vis_objects.dir/src/vis_socket.cpp.o 

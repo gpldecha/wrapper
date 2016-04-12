@@ -73,7 +73,6 @@ class WBox{
 
     }
 
-
 public:
 
     WBox();
@@ -97,11 +96,15 @@ public:
     const geo::fCVec3& get_surface_projection(const geo::fCVec3& P,std::size_t s_index);
     const geo::fCVec3& get_edge_projection(const geo::fCVec3& P, std::size_t e_index);
 
+    const distances &get_distances() const;
+
     geo::fCVec3& get_edge_projection();
     geo::fCVec3& get_surface_projection();
     geo::fCVec3& get_corner_projection();
 
     void print_info() const;
+
+    bool is_inside() const;
 
     bool is_inside(const geo::fCVec3 &P);
 
@@ -129,7 +132,7 @@ public:
     float           dist_surface;
     float           dist_edge;
     float           dist_corner;
-    bool            bIsInside;
+    bool            bIsInsideWbox;
     std::string     name;
 
     std::array<geo::Corner,8>        corners;
@@ -148,7 +151,7 @@ public:
 
     private:
 
-    std::array<bool,6>       inside;
+  //  std::array<bool,6>       inside;
 
 
     const static std::size_t nbEdges    = 12;

@@ -136,10 +136,6 @@ public:
 
     Surface(const Corner& C0,const Corner& C1,const Corner& C2,const Corner& C3);
 
-  //  Surface(const fCVec3& V0,const fCVec3& V1,const fCVec3& V2,const fCVec3& V3);
-
-  //  void set(const fCVec3& V0,const fCVec3& V1,const fCVec3& V2,const fCVec3& V3);
-
     virtual double  shortest_distance(const geo::fCVec3& P);
 
     const geo::fCVec3& get_projection(const geo::fCVec3& P);
@@ -158,6 +154,8 @@ public:
 
     bool is_inside(const geo::fCVec3& P);
 
+    bool is_inside() const;
+
 private:
 
     void init();
@@ -172,6 +170,7 @@ private:
     geo::fCVec3 VMiddle;
     geo::fCVec3 u,v,w; //vectors from VO1 and VO2
     geo::fCVec3 n; // normal to the plane
+    double d;
     geo::fCVec3 projected_P;
     std::vector<double> dists;
     double s,t;

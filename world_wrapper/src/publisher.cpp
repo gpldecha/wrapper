@@ -8,7 +8,6 @@ Publisher::Publisher(std::string name, ros::NodeHandle *n,ww::World_wrapper* wor
      wrap_pub       = ptr_n->advertise<visualization_msgs::Marker>(name + "_corner", 10);
      surface_pub    = ptr_n->advertise<visualization_msgs::MarkerArray>(name + "_surface",10);
      test_point_pub = ptr_n->advertise<visualization_msgs::Marker>(name + "_test_point",10);
-     feature_pub    = ptr_n->advertise<visualization_msgs::MarkerArray>(name + "_features",10);
      edge_pub       = ptr_n->advertise<visualization_msgs::MarkerArray>(name + "_edge",10);
 }
 
@@ -16,7 +15,7 @@ void Publisher::init(const std::string& frame_id){
     init_corner_marker(frame_id);
     init_surface_marker(frame_id);
     init_edge_marker(frame_id);
-    init_feature_marker(frame_id);
+   // init_feature_marker(frame_id);
     init_test_point(frame_id);
 }
 
@@ -259,7 +258,7 @@ void Publisher::update_position(){
     update_position_surface();
     update_position_edge();
 
-    update_position_features();
+    //update_position_features();
 
 }
 

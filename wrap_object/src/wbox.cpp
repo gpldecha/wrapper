@@ -94,31 +94,21 @@ void WBox::distance_to_features(const geo::fCVec3& P){
     closest_surface_id      = 0;
     closest_edge_id         = 0;
     closest_corner_id       = 0;
-    bIsInside               = true;
+    bIsInsideWbox           = true;
     std::size_t inside_count = 0;
-
-    for(std::size_t i = 0; i < 6;i++){
-        inside[i]   = false;
-    }
-
-
     // surfaces
     for(std::size_t i = 0; i < nbSurfaces; i++){
-        dist_surfaces[i] = surfaces[i].shortest_distance(P);
-       if(is_inside(P,i)){
+
+       dist_surfaces[i] = surfaces[i].shortest_distance(P);
+       if(surfaces[i].is_inside()){
             inside_count++;
        }
-
-
 
         if(std::fabs(dist_surfaces[i]) < dist.min_s){
             dist.min_s = dist_surfaces[i];
             closest_surface_id = i;
         }
     }
-
-    // surfaces
-   // distance_to_surfaces(P);
 
     //edges
     for(std::size_t i = 0; i < nbEdges; i++){
@@ -140,16 +130,19 @@ void WBox::distance_to_features(const geo::fCVec3& P){
     }
 
     if(inside_count == 6){
-        bIsInside  = true;
+        bIsInsideWbox  = true;
     }else{
-        bIsInside  = false;
+        bIsInsideWbox  = false;
     }
-
 
 
     dist_surface  =  dist_surfaces[closest_surface_id];
     dist_edge     =  dist_edges[closest_edge_id];
     dist_corner   =  dist_corners[closest_corner_id];
+}
+
+const distances& WBox::get_distances() const{
+    return dist;
 }
 
 float WBox::distance_to_surfaces(const geo::fCVec3& P){
@@ -158,8 +151,6 @@ float WBox::distance_to_surfaces(const geo::fCVec3& P){
     closest_surface_id=0;
 
     for(std::size_t i = 0; i < nbSurfaces; i++){
-
-
         dist_surfaces[i] = surfaces[i].shortest_distance(P);
         if(std::fabs(dist_surfaces[i]) < dist.min_s){
             dist.min_s          = dist_surfaces[i];
@@ -191,6 +182,11 @@ float WBox::distance_to_surface(const geo::fCVec3& P,std::size_t s_index){
     return  surfaces[s_index].shortest_distance(P);
 }
 
+bool WBox::is_inside() const{
+    return bIsInsideWbox;
+}
+
+
 bool WBox::is_inside(const geo::fCVec3 &P){
 
     // surfaces
@@ -208,7 +204,8 @@ bool WBox::is_inside(const geo::fCVec3 &P, std::size_t s_index) {
 }
 
 const geo::fCVec3& WBox::get_surface_projection(const geo::fCVec3& P, std::size_t s_index){
-    return surfaces[s_index].get_projection(P);
+    surfaces[s_index].shortest_distance(P);
+    return surfaces[s_index].get_projection();
 }
 
 const geo::fCVec3& WBox::get_edge_projection(const geo::fCVec3& P,std::size_t e_index){
@@ -220,17 +217,15 @@ geo::fCVec3& WBox::get_edge_projection(){
 }
 
 geo::fCVec3& WBox::get_surface_projection(){
+   // std::cout<< "closest_surface_id: " << closest_surface_id << std::endl;
+  //  surfaces[closest_surface_id].print();
+
     return surfaces[closest_surface_id].get_projection();
 }
 
 geo::fCVec3& WBox::get_corner_projection(){
     return corners[closest_corner_id].get_projection();
 }
-
-
-
-
-
 
 void WBox::getCorners(std::array<geo::Corner,8>& corners,
                             const geo::fCVec3 &dim,
@@ -245,7 +240,6 @@ void WBox::getCorners(std::array<geo::Corner,8>& corners,
     assert(corners.size() == 8);
 
     geo::fCVec3 origin = {{origin_[0],origin_[1],origin_[2]}};
-
 
     // UP
 

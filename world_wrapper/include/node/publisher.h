@@ -5,7 +5,6 @@
 #include <visualization_msgs/Marker.h>
 #include <visualization_msgs/MarkerArray.h>
 #include "world_wrapper/world_wrapper.h"
-
 namespace ww{
 
 

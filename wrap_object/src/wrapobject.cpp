@@ -21,6 +21,7 @@ WrapObject::WrapObject()
 
 void WrapObject::push_back_box(wobj::WBox* wbox){
     wboxes.push_back(wbox);
+    std::cout<< "push back: " << wbox->name << std::endl;
     name_index[wbox->name] = wboxes.size()-1;
     bWBox   = true;
 }
@@ -62,12 +63,12 @@ void WrapObject::distance_to_features(const fCVec3 &P){
 
     // Check closest features box
     if(bWBox){
-        for(std::size_t i = 0; i < hack /*wboxes.size()*/;i++){
+        for(std::size_t i = 0; i < wboxes.size();i++){
            // std::cout<< "wboxes["<<i<<"]->distance_to_features(P)" << std::endl
             wboxes[i]->distance_to_features(P);
             check_closest_feature_wbox(i, wboxes[i]->dist_surface, wboxes[i]->dist_edge,wboxes[i]->dist_corner);
             // if inside of any of the boxes return true;
-            if(wboxes[i]->bIsInside){
+            if(wboxes[i]->bIsInsideWbox){
                 bIsInside = true;
             }
         }
@@ -362,10 +363,17 @@ std::size_t WrapObject::get_number_objects() const{
 }
 
 wobj::WBox &WrapObject::get_wbox(std::string name){
+
+   //for(name_it == name_index.begin(); name_it != name_index.end();name_it++){
+       // std::cout<< "names: " << (name_it->first) << std::endl;
+
+   // }
+
     if( name_index.find(name) != name_index.end()){
         return *wboxes[name_index[name]];
     }else{
         std::cout<< "no such wbox present: " << name << std::endl;
+        exit(0);
         return *wboxes[0];
     }
 

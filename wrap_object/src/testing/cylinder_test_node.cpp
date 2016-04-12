@@ -30,7 +30,7 @@ int main(int argc,char** argv)
 
     geo::Cylinder cylinder("my_cylinder", position,orientation,radius,length);
 
-    opti_rviz::Vis_cylinder vis_cylinder(nh,"cylinder_test");
+  /*  opti_rviz::Vis_cylinder vis_cylinder(nh,"cylinder_test");
     vis_cylinder.initialise("world_frame");
 
     tf::Vector3     position_tf;
@@ -42,7 +42,7 @@ int main(int argc,char** argv)
     opti_rviz::type_conv::mat2tf(orientation,orientation33_tf);
     orientation33_tf.getRotation(orientation_tf);
     vis_cylinder.update(position_tf,orientation_tf);
-
+*/
     // create a set of test points
 
     std::vector<geo::fCVec3> test_points(1);
@@ -100,7 +100,6 @@ int main(int argc,char** argv)
     ros::Rate rate(50);
     while(nh.ok()){
 
-        vis_cylinder.publish();
         vis_point.publish();
 
 
