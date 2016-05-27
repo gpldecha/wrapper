@@ -64,8 +64,12 @@ public:
 public:
 
     float                       dist_surface;
+    float                       dist_edge_hole;
+    float                       dist_edge_ring;
     float                       dist_edge;
     geo::Disk                   plate;
+    geo::fCVec3                 plate_edge_proj;
+    geo::fCVec3                 hole_edge_proj;
     std::array<geo::Disk,3>     holes;
 
 private:

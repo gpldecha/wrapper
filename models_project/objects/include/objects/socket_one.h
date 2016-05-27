@@ -26,6 +26,8 @@ public:
     wobj::WBox               wbox;
     std::array<wobj::WBox,3> hole_wboxes;
 
+    std::array<wobj::WBox,4> edge_wboxes;
+
 private:
 
     float disk_radius;

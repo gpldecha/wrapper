@@ -15,25 +15,28 @@ WSocket::WSocket(const std::string& name,const  geo::Disk& plate,std::array<geo:
 
 void WSocket::distance_to_features(const geo::fCVec3& P){
 
-    dist_edge = std::numeric_limits<float>::max();
+    dist_edge_hole = std::numeric_limits<float>::max();
     bInSocket=false;
     bCount = 0;
 
     plate.shortest_distance(P);
 
     surface_projection  = plate.get_projection();
-    edge_projection     = plate.K;
-    dist_edge           = plate.dist_edge;
+
+    plate_edge_proj     = plate.K;
+    dist_edge_ring      = arma::norm(P - plate_edge_proj);
+
     dist_surface        = plate.dist_surface;
+
 
    for(std::size_t i = 0; i < 3;i++){
 
         holes[i].shortest_distance(P);
         dist   = holes[i].dist_edge;
 
-        if(dist < dist_edge){
-            dist_edge       = dist;
-            edge_projection = holes[i].K;
+        if(dist < dist_edge_hole){
+            dist_edge_hole      = dist;
+            hole_edge_proj      = holes[i].K;
         }
 
         if(holes[i].bIn){
@@ -41,6 +44,16 @@ void WSocket::distance_to_features(const geo::fCVec3& P){
             i = 3;
         }
     }
+
+   if(dist_edge_hole < dist_edge_ring){
+       edge_projection = hole_edge_proj;
+   }else{
+       edge_projection = plate_edge_proj;
+   }
+
+   dist_edge       = arma::norm(P - edge_projection);
+
+
 }
 
 

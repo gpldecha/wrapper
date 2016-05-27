@@ -147,8 +147,8 @@ void WrapObject::get_closest_edge(const fCVec3 &P, ID_object &id_object){
         wsocket.distance_to_features(P);
        // std::cout<< "wsk(0): " << wsocket.dist_edge << std::endl;
 
-       if(wsocket.dist_edge < dist.min_e){
-            dist.min_e                  = wsocket.dist_edge;
+       if(wsocket.dist_edge_hole < dist.min_e){
+            dist.min_e                  = wsocket.dist_edge_hole;
             dist.min_e_obj_type         = SOCKET;
             closest_edge_id             = 0;
             closet_edge_object_id       = 0;
@@ -198,7 +198,7 @@ float WrapObject::distance_to_edge(const geo::fCVec3& P,const ID_object &id_obje
     case SOCKET:
     {
         wsocket.distance_to_features(P);
-        return wsocket.dist_edge;
+        return wsocket.dist_edge_hole;
         break;
     }
     default:

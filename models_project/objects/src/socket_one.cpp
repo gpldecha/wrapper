@@ -39,7 +39,7 @@ Socket_one::Socket_one(std::string link_socket_name,
     wsocket = wobj::WSocket(link_socket_name,plate,holes);
 
 
-    geo::fCVec3 dim             = {{0.07,0.07,0.05}};
+    geo::fCVec3 dim             = {{0.08,0.08,0.05}};
                 dim             = dim * scale;
     geo::fCVec3 orientation     = {{0,0,0}};
 
@@ -47,25 +47,55 @@ Socket_one::Socket_one(std::string link_socket_name,
     position(2) = -0.005/2 - (0.05 - 0.005)/2;
     wbox = wobj::WBox(link_box_name,dim,position,orientation);
 
+    // create boxes to represent the edges of the socket // usefull for the filter
+    {
+        geo::fCVec3 dim_edgeb; dim_edgeb(0) =  dim(0) + 0.04; dim_edgeb(1) = 0.04; dim_edgeb(2) = 0.06;
+        position.zeros();
+        position(1) = dim(0)/2 + 0.01;
+        edge_wboxes[0] = wobj::WBox("socket_top_edge",dim_edgeb,position,orientation);
+    }
+    {
+        geo::fCVec3 dim_edgeb; dim_edgeb(0) =  dim(0) + 0.04; dim_edgeb(1) = 0.04 ; dim_edgeb(2) = 0.06;
+        position.zeros();
+        position(1) = -dim(0)/2 - 0.01;
+        edge_wboxes[1] = wobj::WBox("socket_bottom_edge",dim_edgeb,position,orientation);
+    }
+
+    {
+        geo::fCVec3 dim_edgeb; dim_edgeb(0) =  0.03; dim_edgeb(1) = dim(0) + 0.06; dim_edgeb(2) = 0.06;
+        position.zeros();
+        position(0) = -dim(0)/2 - 0.005;
+        edge_wboxes[2] = wobj::WBox("socket_left_edge",dim_edgeb,position,orientation);
+    }
+
+    {
+        geo::fCVec3 dim_edgeb; dim_edgeb(0) =  0.03; dim_edgeb(1) = dim(0) + 0.06; dim_edgeb(2) = 0.06;
+        position.zeros();
+        position(0) =  dim(0)/2 + 0.005;
+        edge_wboxes[3] = wobj::WBox("socket_right_edge",dim_edgeb,position,orientation);
+    }
+
     // create boxes to represent the socket holes (instead of cylinders )
+
+    double dx = 0.003;
 
     position.zeros();
     position(0) =   -0.01 * scale;
     dim(0)         = 0.01;
     dim(1)         = 0.01;
     dim(2)         = 0.05;
-    position(2) = -0.005/2 - (dim(2) - 0.005)/2;
+    position(2) = -0.005/2 - (dim(2) - 0.005)/2 + dx;
 
     hole_wboxes[0] = wobj::WBox("box_hole_1",dim,position,orientation);
 
     position.zeros();
     position(0)    =    0.01 * scale;
-    position(2) = -0.005/2 - (dim(2)- 0.005)/2;
+    position(2) = -0.005/2 - (dim(2)- 0.005)/2 + dx;
     hole_wboxes[1] = wobj::WBox("box_hole_2",dim,position,orientation);
 
     position.zeros();
     position(1)     =  0.005 * scale;
-    position(2) = -0.005/2 - (dim(2) - 0.005)/2;
+    position(2) = -0.005/2 - (dim(2) - 0.005)/2 + dx;
     hole_wboxes[2] = wobj::WBox("box_hole_3",dim,position,orientation);
 
     // Transformation
@@ -74,7 +104,7 @@ Socket_one::Socket_one(std::string link_socket_name,
     orientation(1) = rpy.y();
     orientation(2) = rpy.z();
 
-    geo::fCVec3 T = {{origin.x(),origin.y(),origin.z()}};
+    geo::fCVec3 T; T(0) = origin.x(); T(1)  = origin.y(); T(2)  = origin.z();
 
     wsocket.transform(T,orientation);
     wbox.transform(T,orientation);
@@ -83,6 +113,10 @@ Socket_one::Socket_one(std::string link_socket_name,
     hole_wboxes[1].transform(T,orientation);
     hole_wboxes[2].transform(T,orientation);
 
+    edge_wboxes[0].transform(T,orientation);
+    edge_wboxes[1].transform(T,orientation);
+    edge_wboxes[2].transform(T,orientation);
+    edge_wboxes[3].transform(T,orientation);
 
 
 
